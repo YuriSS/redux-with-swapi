@@ -45,9 +45,9 @@ const stack = (mapActions, mapKeys) => {
         dispatch(fetchOrGet())
     }
 
-    const hasToRequest = state => state[mapKeys.dataMap].hasOwnProperty(state[mapKeys.data].number)
+    const hasToRequest = state => state[mapKeys.data].group.hasOwnProperty(state[mapKeys.data].number)
 
-    const get = state => [state[mapKeys.dataMap][state[mapKeys.data].number], state[mapKeys.data].number]
+    const get = state => [state[mapKeys.data].group[state[mapKeys.data].number], state[mapKeys.data].number]
 
     return { selected, failed, next, prev, getNext, getPrev }
 }

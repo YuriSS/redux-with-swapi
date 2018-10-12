@@ -12,5 +12,6 @@ export default createData({
   PREV: PREV_FILM,
   FAILED: FILM_FAILED
 }, {
-  key: 'film'
+  key: 'film',
+  number: 'n'
 })

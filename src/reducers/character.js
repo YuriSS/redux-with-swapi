@@ -12,5 +12,6 @@ export default createData({
   PREV: PREV_CHAR,
   FAILED: CHAR_FAILED
 }, {
-  key: 'char'
+  key: 'char',
+  number: 'n'
 })

@@ -23,10 +23,20 @@ const createData = (mapActions, mapKeys) => {
                 return state
         }
     }
+  
+    const group = (state={}, action) => {
+        switch (action.type) {
+            case (mapActions.SELECTED):
+                return Object.assign({}, state, { [action[mapKeys.number]]: action[mapKeys.key] })
+            default:
+                return state
+        }
+    }
 
     return combineReducers({
         current,
-        number: stack({ NEXT: mapActions.NEXT, PREV: mapActions.PREV })
+        number: stack({ NEXT: mapActions.NEXT, PREV: mapActions.PREV }),
+        group
     })
 }
 

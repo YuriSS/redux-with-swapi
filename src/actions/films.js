@@ -13,7 +13,6 @@ const { selected, failed, next, prev, getNext: _getNext, getPrev: _getPrev } = s
 }, {
     data: 'film',
     number: 'n',
-    dataMap: 'films',
     url: 'films'
 })
 
