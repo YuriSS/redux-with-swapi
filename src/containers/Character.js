@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getNext, getPrev } from '../actions/character'
+import { getNext, getPrev, selectChar } from '../actions/character'
 import createButtons from './Buttons'
 
 class Character extends React.Component {
@@ -8,6 +8,11 @@ class Character extends React.Component {
 
     componentDidMount() {
         this.props.fetchChar()
+    }
+
+    selectVal = () => {
+        this.props.onSelect(this.select.value)
+        this.select.value = ''
     }
 
     render() {
@@ -19,6 +24,13 @@ class Character extends React.Component {
                     Some: handleSome
                 })}
                 <this.Buttons />
+                <div>
+                  <input
+                    type='text'
+                    ref={node => this.select = node}
+                  />
+                  <button onClick={this.selectVal}>select</button>
+                </div>
             </div>
         )
     }
@@ -41,5 +53,5 @@ const handleSome = char => (
 
 export default connect(
     state => ({ char: state.char.current.data, error: state.char.current.error }),
-    { fetchChar: getNext }
+    { fetchChar: getNext, onSelect: selectChar }
 ) (Character)

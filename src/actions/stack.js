@@ -11,13 +11,17 @@ const stack = (mapActions, mapKeys) => {
         type: mapActions.FAILED
     })
 
-
     const next = () => ({
         type: mapActions.NEXT
     })
 
     const prev = () => ({
         type: mapActions.PREV
+    })
+
+    const select = n => ({
+      type: mapActions.SELECT,
+      [mapKeys.number]: n
     })
 
     const fetch = n => dispatch => {
@@ -32,7 +36,7 @@ const stack = (mapActions, mapKeys) => {
         if (!hasToRequest(getState())) {
             return dispatch(fetch(getState()[mapKeys.data].number))
         }
-        return dispatch(selected.apply(null, get(getState())))
+        return dispatch(selected.apply(null, getData(getState())))
     }
 
     const getNext = () => (dispatch, getState) => {
@@ -45,11 +49,16 @@ const stack = (mapActions, mapKeys) => {
         dispatch(fetchOrGet())
     }
 
+    const get = n => (dispatch, getState) => {
+        dispatch(select(n))
+        dispatch(fetchOrGet())
+    }
+
     const hasToRequest = state => state[mapKeys.data].group.hasOwnProperty(state[mapKeys.data].number)
 
-    const get = state => [state[mapKeys.data].group[state[mapKeys.data].number], state[mapKeys.data].number]
+    const getData = state => [state[mapKeys.data].group[state[mapKeys.data].number], state[mapKeys.data].number]
 
-    return { selected, failed, next, prev, getNext, getPrev }
+    return { selected, failed, next, prev, getNext, getPrev, get }
 }
 
 export default stack
